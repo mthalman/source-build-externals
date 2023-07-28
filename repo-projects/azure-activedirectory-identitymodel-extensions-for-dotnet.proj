@@ -23,6 +23,15 @@
       <PackCommandArgs>$(BuildCommandArgs) --output $(ProjectDirectory)pack</PackCommandArgs>
     </PropertyGroup>
 
+    <!-- Ensure PowerShell Core is installed -->
+    <Exec Command="$(RepoRoot)/eng/install-powershell.sh"
+          WorkingDirectory="$(RepoRoot)"
+          IgnoreStandardErrorWarningFormat="true"/>
+    <!-- Call the repo's script to update the assembly version (see https://github.com/dotnet/source-build/issues/3565) -->
+    <Exec Command="$(RepoRoot)/.pwsh/pwsh updateAssemblyInfo.ps1"
+          WorkingDirectory="$(ProjectDirectory)"
+          IgnoreStandardErrorWarningFormat="true" />
+
     <Exec Command="$(DotnetToolCommand) restore /bl:restore.binlog $(SystemIdentityModelTokensJwtProject) $(BuildCommandArgs)"
           EnvironmentVariables="@(EnvironmentVariables)"
           WorkingDirectory="$(ProjectDirectory)"

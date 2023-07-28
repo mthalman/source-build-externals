@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matt Thalman <mthalman@microsoft.com>
+Date: Thu, 27 Jul 2023 16:10:51 -0500
+Subject: [PATCH] Fix casing in updateAssemblyInfo script
+
+https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/pull/2189
+---
+ updateAssemblyInfo.ps1 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/updateAssemblyInfo.ps1 b/updateAssemblyInfo.ps1
+index 4cf4f8c8..ce9655bc 100644
+--- a/updateAssemblyInfo.ps1
++++ b/updateAssemblyInfo.ps1
+@@ -62,7 +62,7 @@ Set-Content $versionPath $version
+ foreach($project in $buildConfiguration.SelectNodes("root/projects/src/project"))
+ {
+     $name = $project.name
+-    $assemblyInfoPath = "$root\src\$name\properties\AssemblyInfo.cs"
++    $assemblyInfoPath = "$root\src\$name\Properties\AssemblyInfo.cs"
+     Write-Host "assemblyInfoPath: " $assemblyInfoPath
+ 
+     $assemblyInfo = Get-Content $assemblyInfoPath
